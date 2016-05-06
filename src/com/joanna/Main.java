@@ -13,6 +13,7 @@ public class Main {
         while (scaner.hasNextLine()) {
             String command = scaner.next();
             if (command.equals("dir")) {
+                c.displayCurrentWorkingDirectory();
                 try {
                     c.showWorkingDirectory();
                 } catch (IOException e) {
@@ -26,11 +27,15 @@ public class Main {
                 System.out.print("tree");
                 c.displayPrompt();
 
+            } else if (command.equals("cd..")) {
+                c.displayCurrentWorkingDirectory();
+                c.displayPrompt();
+
             } else if (command.equals("exit")) {
                 System.out.print("Bye");
                 break;
 
-            } else if (scaner.next().equals("")) {
+            } else if (command.equals("")) {
                 System.out.print("Empty");
                 c.displayPrompt();
             } else {

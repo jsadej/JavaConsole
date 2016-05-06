@@ -6,29 +6,35 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scaner = new Scanner(System.in);
-        System.out.print("enter command");
+        Consola c=new Consola();
+        c.displayPrompt();
+
         while (scaner.hasNextLine()) {
             String command = scaner.next();
-            System.out.print(command);
             if(command.equals("dir")) {
-                System.out.print("$ dir");
+                System.out.print("dir");
+                c.displayPrompt();
+
 
             }
             else  if(command.equals("tree")){
-                System.out.print("$ tree");
+                System.out.print("tree");
+                c.displayPrompt();
+
             }
             else if (command.equals("exit")) {
                 System.out.print("Bye");
                 break;
 
             }
-            else if (command.isEmpty()) {
-                System.out.print("$");
-                break;
-
+            else if (scaner.next().equals("")) {
+                System.out.print("Empty");
+                c.displayPrompt();
             }
             else {
-             System.out.print("Unknown command"); }
+             System.out.print("Unknown command");
+                c.displayPrompt();
+            }
 
 
 

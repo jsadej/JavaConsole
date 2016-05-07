@@ -1,7 +1,10 @@
 package com.joanna;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
 
@@ -9,13 +12,18 @@ public class Main {
         Scanner scaner = new Scanner(System.in);
         Consola c = new Consola();
         c.displayPrompt();
+        String pattern = "(^cd)(\\s+)(.*)+";
+        Pattern r = Pattern.compile(pattern);
+        boolean done = false;
 
-        while (scaner.hasNextLine()) {
-            String command = scaner.next();
+        while (!done) {
+            String command = scaner.nextLine();
+            Matcher m = r.matcher(command);
+            System.out.print(command);
             if (command.equals("dir")) {
                 c.displayCurrentWorkingDirectory();
                 try {
-                    c.showWorkingDirectory();
+                    c.displayListWorkingDirectory();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -27,15 +35,15 @@ public class Main {
                 System.out.print("tree");
                 c.displayPrompt();
 
-            } else if (command.equals("cd..")) {
+            } else if (m.matches()) {
                 c.displayCurrentWorkingDirectory();
                 c.displayPrompt();
 
             } else if (command.equals("exit")) {
                 System.out.print("Bye");
-                break;
+                done = true;
 
-            } else if (command.equals("")) {
+            } else if (command.isEmpty()) {
                 System.out.print("Empty");
                 c.displayPrompt();
             } else {
@@ -46,5 +54,7 @@ public class Main {
 
         }
         scaner.close();
+
     }
+
 }

@@ -6,7 +6,9 @@ import java.io.IOException;
  * Created by jonna on 2016-05-05.
  */
 public class Consola {
+    File file = new File(".");
     String currentDirectory;
+    String newDirectory;
 
     public void displayPrompt() {
         StringBuilder builder = new StringBuilder();
@@ -15,9 +17,9 @@ public class Consola {
         System.out.print(s);
     }
 
-    public void showWorkingDirectory() throws IOException {
-        File file = new File(".");
-        currentDirectory = file.getAbsolutePath();
+    public void displayListWorkingDirectory() throws IOException {
+
+        file.getAbsolutePath();
         File[] files = file.listFiles();
         for (File f : files) {
             if (f.isDirectory()) {
@@ -30,11 +32,12 @@ public class Consola {
     }
 
     public void displayCurrentWorkingDirectory() {
-
         currentDirectory = System.getProperty("user.dir");
         System.out.println(currentDirectory);
-
-
     }
 
+    public void changeCurrentDir(String newPath) {
+        System.setProperty("user.dir", newPath);
+
+    }
 }

@@ -1,6 +1,8 @@
 package com.joanna;
 import java.io.File;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by jonna on 2016-05-05.
@@ -8,7 +10,7 @@ import java.io.IOException;
 public class Consola {
     File file = new File(".");
     String currentDirectory;
-    String newDirectory;
+
 
     public void displayPrompt() {
         StringBuilder builder = new StringBuilder();
@@ -37,6 +39,8 @@ public class Consola {
     }
 
     public void changeCurrentDir(String newPath) {
+
+        //System.out.print(newPath);
         System.setProperty("user.dir", newPath);
 
     }

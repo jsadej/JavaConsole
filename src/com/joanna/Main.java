@@ -2,24 +2,26 @@ package com.joanna;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        Scanner scaner = new Scanner(System.in);
+        InputStreamReader isr = new InputStreamReader(System.in);
+        BufferedReader buffer = new BufferedReader(isr);
         Consola c = new Consola();
         c.displayPrompt();
-        String pattern = "(^cd)(\\s+)(.*)+";
+        String pattern = "(^cd)(\\s)(.*)";
         Pattern r = Pattern.compile(pattern);
         boolean done = false;
 
         while (!done) {
-            String command = scaner.nextLine();
+            String command = buffer.readLine();
             Matcher m = r.matcher(command);
-            System.out.print(command);
+            //System.out.print(command);
             if (command.equals("dir")) {
                 c.displayCurrentWorkingDirectory();
                 try {
@@ -36,8 +38,9 @@ public class Main {
                 c.displayPrompt();
 
             } else if (m.matches()) {
-                c.displayCurrentWorkingDirectory();
+                c.changeCurrentDir(m.group(3));
                 c.displayPrompt();
+
 
             } else if (command.equals("exit")) {
                 System.out.print("Bye");
@@ -53,7 +56,7 @@ public class Main {
 
 
         }
-        scaner.close();
+        isr.close();
 
     }
 

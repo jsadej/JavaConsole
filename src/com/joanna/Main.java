@@ -15,13 +15,15 @@ public class Main {
         Consola c = new Consola();
         c.displayPrompt();
         String pattern = "(^cd)(\\s)(.*)";
+        String patternPrompt="(^prompt)(\\s)(.*)";
         Pattern r = Pattern.compile(pattern);
+        Pattern rPrompt=Pattern.compile(patternPrompt);
         boolean done = false;
 
         while (!done) {
             String command = buffer.readLine();
             Matcher m = r.matcher(command);
-            //System.out.print(command);
+            Matcher mprompt=rPrompt.matcher(command);
             if (command.equals("dir")) {
                 c.displayCurrentWorkingDirectory();
                 try {
@@ -29,9 +31,7 @@ public class Main {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
                 c.displayPrompt();
-
 
             } else if (command.equals("tree")) {
                 System.out.print("tree");
@@ -41,6 +41,9 @@ public class Main {
                 c.changeCurrentDir(m.group(3));
                 c.displayPrompt();
 
+            } else if(mprompt.matches()) {
+                c.customizePrompt(mprompt.group(3));
+                c.displayPrompt();
 
             } else if (command.equals("exit")) {
                 System.out.print("Bye");
@@ -48,12 +51,11 @@ public class Main {
 
             } else if (command.isEmpty()) {
                 c.displayPrompt();
+
             } else {
                 System.out.print("Unknown command");
                 c.displayPrompt();
             }
-
-
         }
         isr.close();
 

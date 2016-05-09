@@ -9,11 +9,12 @@ import java.io.IOException;
  */
 public class Consola {
     File currentDirectory = new File(System.getProperty("user.dir"));
-
+    String currentPrompt = "$";
 
     public void displayPrompt() {
         StringBuilder builder = new StringBuilder();
-        builder.append(System.getProperty("line.separator")).append("$");
+        builder.append(currentPrompt).append(" ");
+
         String s = builder.toString();
         System.out.print(s);
     }
@@ -52,6 +53,23 @@ public class Consola {
             System.out.print("No such directory: " + newCanonicalPath);
         }
 
+
+    }
+
+    public void customizePrompt(String prompt) throws IOException {
+
+        if (prompt.equals("cwd")) {
+            System.out.print("jestem w cwd " + currentDirectory.getCanonicalPath());
+            currentPrompt = currentDirectory.getCanonicalPath();
+            System.out.print("moj prompt " + currentPrompt);
+
+        } else if (prompt.equals("reset")) {
+            currentPrompt = "$";
+
+        } else {
+            currentPrompt=prompt;
+
+        }
 
     }
 }

@@ -1,15 +1,14 @@
 package com.joanna;
 import java.io.File;
 import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
+
 
 /**
  * Created by jonna on 2016-05-05.
  */
 public class Consola {
-    File file = new File(".");
-    String currentDirectory;
+    File currentDirectory = new File(System.getProperty("user.dir"));
 
 
     public void displayPrompt() {
@@ -19,10 +18,8 @@ public class Consola {
         System.out.print(s);
     }
 
-    public void displayListWorkingDirectory() throws IOException {
-
-        file.getAbsolutePath();
-        File[] files = file.listFiles();
+    public void listWorkingDirectory() throws IOException {
+        File[] files = currentDirectory.listFiles();
         for (File f : files) {
             if (f.isDirectory()) {
                 System.out.print("Dir:");
@@ -31,17 +28,30 @@ public class Consola {
             }
             System.out.println(f.getName());
         }
+
     }
 
     public void displayCurrentWorkingDirectory() {
-        currentDirectory = System.getProperty("user.dir");
         System.out.println(currentDirectory);
     }
 
-    public void changeCurrentDir(String newPath) {
+    public void changeCurrentDir(String newPath) throws IOException {
 
-        //System.out.print(newPath);
-        System.setProperty("user.dir", newPath);
+        File NewFilePath = new File(newPath);
+        // used to check if exist
+        File newCanonicalFile = NewFilePath.getCanonicalFile();
+        // used to set proper new user.dir
+        String newCanonicalPath = NewFilePath.getCanonicalPath();
+
+        System.out.println("canonical path: " + newCanonicalFile);
+        if (newCanonicalFile.exists()) {
+            System.setProperty("user.dir", newCanonicalPath);
+            currentDirectory = newCanonicalFile;
+            System.out.print("Katalog zmieniony na: " + currentDirectory);
+        } else {
+            System.out.print("No such directory: " + newCanonicalPath);
+        }
+
 
     }
 }

@@ -25,7 +25,7 @@ public class Main {
             if (command.equals("dir")) {
                 c.displayCurrentWorkingDirectory();
                 try {
-                    c.displayListWorkingDirectory();
+                    c.listWorkingDirectory();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -47,7 +47,6 @@ public class Main {
                 done = true;
 
             } else if (command.isEmpty()) {
-                System.out.print("Empty");
                 c.displayPrompt();
             } else {
                 System.out.print("Unknown command");

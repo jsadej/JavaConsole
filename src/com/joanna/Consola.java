@@ -58,7 +58,7 @@ public class Consola {
 
     public void customizePrompt(String prompt) throws IOException {
 
-        if (prompt.equals("cwd")) {
+        if (prompt.equals("$cwd")) {
             System.out.print("jestem w cwd " + currentDirectory.getCanonicalPath());
             currentPrompt = currentDirectory.getCanonicalPath();
             System.out.print("moj prompt " + currentPrompt);

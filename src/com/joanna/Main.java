@@ -1,6 +1,6 @@
 package com.joanna;
 
-import java.io.File;
+
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -34,7 +34,7 @@ public class Main {
                 c.displayPrompt();
 
             } else if (command.equals("tree")) {
-                System.out.print("tree");
+                c.runTree();
                 c.displayPrompt();
 
             } else if (m.matches()) {

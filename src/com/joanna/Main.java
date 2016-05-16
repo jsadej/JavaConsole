@@ -7,13 +7,13 @@ import java.io.InputStreamReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Main {
+public class Main  {
 
     public static void main(String[] args) throws IOException {
         InputStreamReader isr = new InputStreamReader(System.in);
         BufferedReader buffer = new BufferedReader(isr);
-        Consola c = new Consola();
-        c.displayPrompt();
+        ConsolaImpl cimpl=new ConsolaImpl();
+        cimpl.displayPrompt();
         String pattern = "(^cd)(\\s)(.*)";
         String patternPrompt="(^prompt)(\\s)(.*)";
         Pattern r = Pattern.compile(pattern);
@@ -25,36 +25,36 @@ public class Main {
             Matcher m = r.matcher(command);
             Matcher mprompt=rPrompt.matcher(command);
             if (command.equals("dir")) {
-                c.displayCurrentWorkingDirectory();
+                cimpl.displayCurrentWorkingDirectory();
                 try {
-                    c.listWorkingDirectory();
+                    cimpl.listWorkingDirectory();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                c.displayPrompt();
+                cimpl.displayPrompt();
 
             } else if (command.equals("tree")) {
-                c.runTree();
-                c.displayPrompt();
+                cimpl.runTree();
+                cimpl.displayPrompt();
 
             } else if (m.matches()) {
-                c.changeCurrentDir(m.group(3));
-                c.displayPrompt();
+                cimpl.changeCurrentDir(m.group(3));
+                cimpl.displayPrompt();
 
             } else if(mprompt.matches()) {
-                c.customizePrompt(mprompt.group(3));
-                c.displayPrompt();
+                cimpl.customizePrompt(mprompt.group(3));
+                cimpl.displayPrompt();
 
             } else if (command.equals("exit")) {
                 System.out.print("Bye");
                 done = true;
 
             } else if (command.isEmpty()) {
-                c.displayPrompt();
+                cimpl.displayPrompt();
 
             } else {
                 System.out.print("Unknown command");
-                c.displayPrompt();
+                cimpl.displayPrompt();
             }
         }
         isr.close();
